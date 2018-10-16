@@ -17,7 +17,7 @@
                         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 引入配置文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties" />
+    <!--<context:property-placeholder location="classpath:jdbc.properties" />-->
     <!--<bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties" />
@@ -69,9 +69,9 @@
     <!--使用注释事务 -->
     <!--<tx:annotation-driven  transaction-manager="transactionManager" />-->
 
-    <tx:advice id="txAdvice" transaction-manager="txManager">
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">
         <tx:attributes>
-            <!--作用于service,而不是dao-->
+            &lt;!&ndash;作用于service,而不是dao&ndash;&gt;
             <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException"/>
             <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
             <tx:method name="RegisterService" propagation="REQUIRED" read-only="false" rollback-for="java.lang.RuntimeException" />
@@ -83,13 +83,17 @@
             <tx:method name="get*" propagation="SUPPORTS" />
             <tx:method name="select*" propagation="SUPPORTS" />
             <tx:method name="query*" propagation="SUPPORTS" />
+
+            <tx:method name="login*" propagation="SUPPORTS" />
         </tx:attributes>
     </tx:advice>
 
-    <!-- 把事务控制在service层 -->
+    &lt;!&ndash; 把事务控制在service层 &ndash;&gt;
     <aop:config>
         <aop:pointcut id="serviceMethods" expression="execution(public * com.pier.service.*.*(..))" />
         <aop:advisor pointcut-ref="serviceMethods" advice-ref="txAdvice" />
-    </aop:config>
+    </aop:config>-->
+
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
 </beans>

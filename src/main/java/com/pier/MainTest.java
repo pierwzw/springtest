@@ -1,6 +1,6 @@
 package com.pier;
 
-import com.pier.aware.MyApplicationContextAware;
+import com.pier.aware.ApplicationContextHolder;
 import com.pier.bean.BeanInit;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,7 +18,7 @@ public class MainTest {
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring-context.xml"});
         //BeanInit testBeanInit = (BeanInit) context.getBean("beanInit");
-        BeanInit testBeanInit = MyApplicationContextAware.getBean("testInit");
+        BeanInit testBeanInit = ApplicationContextHolder.getBean("testInit");
         testBeanInit.say();
         try {
             testBeanInit.toDo();

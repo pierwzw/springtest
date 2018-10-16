@@ -13,9 +13,10 @@
 
 	<!-- 配置扫描的包, exclude使事务起作用 -->
 	<!--<context:component-scan base-package="com.pier" />-->
-	<context:component-scan base-package="com.pier">
+	<!-- use-default-filters 只扫描include的-->
+	<context:component-scan base-package="com.pier.*" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
 	</context:component-scan>
 
 	<!-- 这个是注解驱动 -->

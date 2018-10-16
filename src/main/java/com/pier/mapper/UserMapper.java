@@ -2,24 +2,24 @@ package com.pier.mapper;
 
 import com.pier.bean.UserBean;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-
 public interface UserMapper {
-    
-    
+
     /**
      * 登录
      */
-    @Select("select * from t_user where username=#{un} and password=#{pw}")
+    /*@Select("select * from t_user where username=#{un} and password=#{pw}")
+    @CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class)
     @Results({
         @Result(id=true,property="id",column="id",javaType=Integer.class),
         @Result(property="username",column="username",javaType=String.class),
         @Result(property="password",column="password",javaType=String.class),
         @Result(property="account",column="account",javaType=Double.class)
-    })
+    })*/
     public UserBean login(@Param("un") String username, @Param("pw") String password);
     /**
      * 新增用戶
@@ -83,7 +83,7 @@ public interface UserMapper {
    /**
     * 分页统计数据
     */
-    public int countUser(Map<String, Object> parmas) throws Exception;
+   public int countUser(Map<String, Object> parmas) throws Exception;
     
   
     

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @date 2018/9/11 19:43
  */
 @Component
-public class MyApplicationContextAware implements ApplicationContextAware, BeanNameAware, BeanFactoryAware,
+public class ApplicationContextHolder implements ApplicationContextAware, BeanNameAware, BeanFactoryAware,
         MessageSourceAware, ApplicationEventPublisherAware, ResourceLoaderAware {
 
     private static ApplicationContext applicationContext;
@@ -24,7 +24,7 @@ public class MyApplicationContextAware implements ApplicationContextAware, BeanN
     private ResourceLoader resourceLoader;
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        MyApplicationContextAware.applicationContext = applicationContext;
+        ApplicationContextHolder.applicationContext = applicationContext;
     }
 
     public static <T> T getBean(String beanName){
@@ -36,7 +36,7 @@ public class MyApplicationContextAware implements ApplicationContextAware, BeanN
     }
 
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        MyApplicationContextAware.beanFactory = beanFactory;
+        ApplicationContextHolder.beanFactory = beanFactory;
     }
 
     public void setBeanName(String name) {

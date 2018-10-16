@@ -27,7 +27,7 @@ public class LoginController {
 		log.info(user);
 
 		ModelAndView mv = new ModelAndView();
-		UserBean u = loginServiceImpl.Login(user.getUsername(),
+		UserBean u = loginServiceImpl.login(user.getUsername(),
 				user.getPassword());
 
 		if (u != null) {
