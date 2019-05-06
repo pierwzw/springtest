@@ -4,16 +4,27 @@
 	<!-- 默认为PerpetualCache-->
 	<cache type="com.pier.cache.MyCache"></cache>
 	<!-- 自定义返回结果集 -->
-	<resultMap id="userMap" type="UserBean">
+	<resultMap id="userMap" type="User">
 		<id property="id" column="id" javaType="java.lang.Integer"></id>
 		<result property="username" column="username" javaType="java.lang.String"></result>
 		<result property="password" column="password" javaType="java.lang.String"></result>
 		<result property="account" column="account" javaType="java.lang.Double"></result>
 	</resultMap>
 
+	<!--<parameterMap type="com.pier.bean.User" id="userParamMap">
+		<parameter property="id"            resultMap="userMap"/>
+		<parameter property="username"        resultMap="userMap"/>
+		<parameter property="password"        resultMap="userMap"/>
+		<parameter property="account"        resultMap="userMap"/>
+	</parameterMap>-->
+
 	<select id="login" parameterType="java.util.Map" resultMap="userMap">
 		select * from t_user where username=#{un} and password=#{pw}
 	</select>
+
+	<insert id="insertUser" parameterType="com.pier.bean.User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user value (null,#{user.username},#{user.password},#{user.account})
+	</insert>
 
 	<!-- 批量操作和foreach标签 -->
 

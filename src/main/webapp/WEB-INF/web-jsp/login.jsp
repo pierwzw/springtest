@@ -22,7 +22,8 @@
 	<form action="<%=basePath%>login" method="post">
 		<input type="text" name="username" /> 
 		<input type="text" name="password" /> 
-		<input type="submit" value="提交" />
+		<input type="submit" value="登录	" />
+		<a href="<%=basePath%>register">注册	<a/>
 	</form>
 </body>
 </html>

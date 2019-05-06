@@ -1,16 +1,12 @@
-package com.pier.service.impl;
+package com.pier.impl;
 
-import com.pier.aspect.MethodLog;
-import com.pier.bean.BeanInit;
-import com.pier.bean.UserBean;
+import com.pier.bean.User;
 import com.pier.mapper.UserMapper;
-import com.pier.service.ILoginService;
+import com.pier.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 
 @Service
 public class LoginServiceImpl implements ILoginService {
@@ -20,8 +16,14 @@ public class LoginServiceImpl implements ILoginService {
 
     //@MethodLog(description = "login method", clazz = LoginServiceImpl.class)
     @Transactional
-    public UserBean login(String username, String password) {
+    public User login(String username, String password) {
         return um.login(username, password);
+    }
+
+    @Transactional
+    public int register(User user) throws Exception {
+        System.out.println("userid:"+user.getId());
+        return um.insertUser(user);
     }
 
     public static void main(String[] args) {

@@ -4,5 +4,8 @@
 <beans>
     <import resource="beans.xml"/>
     <import resource="spring-mybatis.xml" />
-    <!--<import resource="spring-redis.xml" />-->
+    <import resource="spring-redis.xml" />
+    <import resource="hessian-server.xml"/>
+    <import resource="hessian-client.xml"/>
+    <import resource="spring-rabbitmq.xml"/>
 </beans>

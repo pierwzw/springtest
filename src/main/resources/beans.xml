@@ -20,12 +20,4 @@
         <property name="name" value="HelloKitty" />
         <property name="age" value="1" />
     </bean>
-
-    <!--<bean id="testInit2" class="com.pier.bean.BeanInit2">
-        <property name="name" value="HelloKitty2" />
-        <property name="age" value="2222" />
-    </bean>-->
-
-    <!--<bean class="com.pier.processor.MyBeanPostProsessor" />-->
-
 </beans>

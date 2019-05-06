@@ -2,18 +2,18 @@ package com.pier.bean;
 
 import java.io.Serializable;
 
-public class UserBean implements Serializable {
+public class User implements Serializable {
 
-	private Integer id;
+	private int id;
 	private String username;
 	private String password;
-	private Double account;
+	private double account;
 
-	public UserBean() {
+	public User() {
 		super();
 	}
 
-	public UserBean(Integer id, String username, String password, Double account) {
+	public User(Integer id, String username, String password, double account) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -45,17 +45,17 @@ public class UserBean implements Serializable {
 		this.password = password;
 	}
 
-	public Double getAccount() {
+	public double getAccount() {
 		return account;
 	}
 
-	public void setAccount(Double account) {
+	public void setAccount(double account) {
 		this.account = account;
 	}
 
 	@Override
 	public String toString() {
-		return "UserBean [account=" + account + ", id=" + id + ", password="
+		return "User [account=" + account + ", id=" + id + ", password="
 				+ password + ", username=" + username + "]";
 	}
 }

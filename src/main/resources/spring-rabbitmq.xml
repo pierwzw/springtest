@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!-- rabbit mq 连接配置 -->
+    <rabbit:connection-factory virtual-host="/" id="springConnection" host="aliyun" username="pier" password="644886"
+                               port="5672" publisher-confirms="true" publisher-returns="true"/>
+
+    <rabbit:admin id="springAdmin" connection-factory="springConnection"/>
+
+    <!-- 队列一-->
+    <rabbit:queue id="test_queue" durable="true" auto-delete="false" exclusive="false" name="test_queue"/>
+
+    <rabbit:direct-exchange name="test_exchange" durable="true" auto-delete="false" id="test_exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="test_queue" key="test"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <bean id="messageListener" class="com.pier.mq.rabbitmq.consumer.Consumer"></bean>
+
+    <rabbit:template id="mqTemplate" connection-factory="springConnection" reply-timeout="2000"
+                     routing-key="test" exchange="test_exchange"/>
+
+    <rabbit:listener-container connection-factory="springConnection" prefetch="1" acknowledge="manual">
+        <rabbit:listener queues="test_queue" ref="messageListener" method="onMessage"/>
+    </rabbit:listener-container>
+
+    <!--&lt;!&ndash;队列二&ndash;&gt;
+    <rabbit:queue id="test_queue_2" durable="true" auto-delete="false" exclusive="false" name="test_queue_2"/>
+
+    <rabbit:fanout-exchange name="fanout_exchange" id="fanout_exchange" durable="true" auto-delete="false" declared-by="springAdmin">
+        <rabbit:bindings>
+            <rabbit:binding queue="test_queue_2"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+
+    <bean id="messageListener2" class="com.pier.mq.rabbitmq.listener.MessageListener"></bean>
+
+    <rabbit:listener-container connection-factory="springConnection" acknowledge="manual" prefetch="10" >
+        <rabbit:listener queues="test_queue_2" ref="messageListener2" method="onMessage"/>
+    </rabbit:listener-container>-->
+
+</beans>

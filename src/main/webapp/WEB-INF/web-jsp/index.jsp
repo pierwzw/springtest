@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -21,6 +22,7 @@
 
 <body>
 	hello, ${user.username}
-	<br>you have ${user.account}$!
+	<%--<br>You have <fmt:formatNumber value="${user.account}" type="number" maxFractionDigits="2"/>$--%>
+    <br>You have ${user.account}$
 </body>
 </html>
