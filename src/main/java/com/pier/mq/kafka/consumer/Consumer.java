@@ -23,13 +23,15 @@ public class Consumer extends Thread{
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", KafkaProperties.broker);
         /** 群组id可以省略，但是不常见 */
-        properties.setProperty("group.id","test");
+        properties.setProperty("group.id","test-kafka");
         // 默认使用的是自动提交
         properties.put("enable.auto.commit", false);
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         // 自定义序列化器
         //properties.put("value.serializer", "com.pier.mq.kafka.serialize.serializer.UserDeserializer");
+        // String must be one of: latest, earliest, none
+        properties.put("auto.offset.reset", "earliest");
         consumer = new KafkaConsumer<>(properties);
         /** topics可以为正则表达式 */
         consumer.subscribe(Arrays.asList(KafkaProperties.topic));
@@ -39,7 +41,7 @@ public class Consumer extends Thread{
     public void run() {
         try{
             while (true){
-                consumer.close();
+                //consumer.close();
                 ConsumerRecords<String,String> records = consumer.poll(100);
                 for (ConsumerRecord<String,String> recode: records) {
                     System.out.println("recodeOffset = " + recode.offset() + "recodeValue = " + recode.value());

@@ -4,6 +4,7 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.pier.bean.People;
 import com.pier.bean.User;
 import com.pier.impl.LoginServiceImpl;
+import com.pier.mq.kafka.connector.ConnectTest;
 import com.pier.mq.rabbitmq.producer.Producer;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
@@ -60,7 +61,7 @@ public class SpringTest {
 		}
 	}
 
-	@Resource
+	/*@Resource
 	private People people;
 
 	@Test
@@ -69,5 +70,10 @@ public class SpringTest {
         System.out.println(people.getSex());
         System.out.println(people.getName());
         System.out.println(people.getAge());
-    }
+    }*/
+
+    @Test
+	public void testKafkaConnect(){
+		new ConnectTest().testConnectStandalone();
+	}
 }

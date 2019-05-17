@@ -1,10 +1,7 @@
 package com.pier.mq.kafka.producer;
 
 import com.pier.mq.kafka.KafkaProperties;
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
 
@@ -27,6 +24,10 @@ public class Producer extends Thread{
         //properties.put("value.serializer", "com.pier.mq.kafka.serialize.serializer.UserSerializer");
         // 实现自定义分区器
         //properties.put("partitioner.class", "com.pier.mq.kafka.producer.AuditPartitioner");
+        // 启用幂等
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        // 单个broker连接在任意某个时刻只处理一个请求，若管道中存在未完成的请求，producer不会发送新的请求，该设置可以防止消息乱序
+        properties.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "1");
         producer = new KafkaProducer<>(properties);
     }
 
@@ -40,6 +41,9 @@ public class Producer extends Thread{
             producer.send(new ProducerRecord<>(topic, message), (recordMetadata, e) -> {
                 if (e != null){
                     e.printStackTrace();
+                }
+                if (recordMetadata != null){
+                    System.out.println(message + " has sent successfully!");
                 }
             });
             messageNo ++;
